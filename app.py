@@ -4,18 +4,21 @@ import sqlite3
 import os
 
 def initData():
-    DB_PATH = os.getenv("DATABASE_URL", "/tmp/database.db")
-    base = sqlite3.connect(DB_PATH)
-    c = base.cursor()
-    c.execute("""
-        CREATE TABLE IF NOT EXISTS notes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT NOT NULL,
-            content TEXT NOT NULL
-        )
-    """)
-    c.commit()
-    c.close()
+    try:
+        DB_PATH = os.getenv("DATABASE_URL", "/tmp/database.db")
+        base = sqlite3.connect(DB_PATH)
+        c = base.cursor()
+        c.execute("""
+            CREATE TABLE IF NOT EXISTS notes (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT NOT NULL,
+                content TEXT NOT NULL
+            )
+        """)
+        base.commit()
+        base.close()
+    except Exception as e:
+        print("❌ DB init error:", e)
 
 app = Flask(__name__)
 initData()
