@@ -1,9 +1,11 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import sqlite3
+import os
 
 def initData():
-    base = sqlite3.connect("database.db")
+    DB_PATH = os.getenv("DATABASE_URL", "/tmp/database.db")
+    base = sqlite3.connect(DB_PATH)
     c = base.cursor()
     c.execute("""
         CREATE TABLE IF NOT EXISTS notes (
@@ -26,7 +28,9 @@ def addNote():
     title = data.get("title")
     content = data.get("content")
 
-    base = sqlite3.connect("database.db")
+
+    DB_PATH = os.getenv("DATABASE_URL", "/tmp/database.db")
+    base = sqlite3.connect(DB_PATH)
     c = base.cursor()
     c.execute("INSERT INTO notes (title, content) VALUES (?, ?)", (title, content))
     base.commit()
