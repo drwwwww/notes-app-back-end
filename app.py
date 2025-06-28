@@ -28,8 +28,8 @@ def addNote():
 
     base = sqlite3.connect("database.db")
     c = base.cursor()
-    c.execute("INSERT INTO notes (title, content) VALUES (?, ?)" title, content)
+    c.execute("INSERT INTO notes (title, content) VALUES (?, ?)", title, content)
     c.commit()
     c.close()
-    
+
     return jsonify({"message": "done"})
