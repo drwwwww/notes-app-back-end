@@ -5,7 +5,7 @@ import os
 
 def initData():
     try:
-        DB_PATH = os.getenv("DATABASE_URL", "/tmp/database.db")
+        DB_PATH = os.getenv("database.db")
         base = sqlite3.connect(DB_PATH)
         c = base.cursor()
         c.execute("""
@@ -32,7 +32,7 @@ def addNote():
     content = data.get("content")
 
 
-    DB_PATH = os.getenv("DATABASE_URL", "/tmp/database.db")
+    DB_PATH = os.getenv("database.db")
     base = sqlite3.connect(DB_PATH)
     c = base.cursor()
     c.execute("INSERT INTO notes (title, content) VALUES (?, ?)", (title, content))
