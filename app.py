@@ -37,7 +37,7 @@ def addNote():
 
     base = getConnection()
     c = base.cursor()
-    c.execute("INSERT INTO notes (title, content) VALUES (?, ?)", (title, content))
+    c.execute("INSERT INTO notes (title, content) VALUES (%s, %s)", (title, content))
     base.commit()
     base.close()
 
