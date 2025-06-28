@@ -17,4 +17,4 @@ def addNote():
 
     notes.append(note)
 
-    return
+    return jsonify({"message": "done"})
