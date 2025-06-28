@@ -2,14 +2,13 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import sqlite3
 import os
-import pyscopg2
+import psycopg2
 
 def getConnection():
     return psycopg2.connect(os.getenv("DATABASE_URL"))
 
 def initData():
     try:
-        DB_PATH = os.getenv("database.db")
         base = getConnection()
         c = base.cursor()
         c.execute("""
@@ -36,8 +35,7 @@ def addNote():
     content = data.get("content")
 
 
-    DB_PATH = os.getenv("database.db")
-    base = sqlite3.connect(DB_PATH)
+    base = getConnection()
     c = base.cursor()
     c.execute("INSERT INTO notes (title, content) VALUES (?, ?)", (title, content))
     base.commit()
