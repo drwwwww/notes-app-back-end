@@ -13,7 +13,7 @@ def initData():
         c = base.cursor()
         c.execute("""
             CREATE TABLE IF NOT EXISTS notes (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id SERIAL PRIMARY KEY,
                 title TEXT NOT NULL,
                 content TEXT NOT NULL
             )
