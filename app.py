@@ -2,11 +2,15 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import sqlite3
 import os
+import pyscopg2
+
+def getConnection():
+    return psycopg2.connect(os.getenv("DATABASE_URL"))
 
 def initData():
     try:
         DB_PATH = os.getenv("database.db")
-        base = sqlite3.connect(DB_PATH)
+        base = getConnection()
         c = base.cursor()
         c.execute("""
             CREATE TABLE IF NOT EXISTS notes (
