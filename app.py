@@ -42,3 +42,23 @@ def addNote():
     base.close()
 
     return jsonify({"message": "done"})
+
+@app.route("/allNotes", methods=["GET"])
+def allNotes():
+
+    base = getConnection()
+    c = base.cursor()
+    c.execute("SELECT title, content FROM notes")
+    rows = c.fetchall
+    base.commit()
+    base.close()
+
+    notes = []
+    for row in rows:
+        notes.append({
+            "title": row[0],
+            "content": row[1]
+            })
+
+
+    return jsonify(notes)
