@@ -4,6 +4,24 @@ import sqlite3
 import os
 import psycopg2
 
+def loadBanned():
+    list = []
+    with open("banned.txt", "r") as f:
+        for word in f.readlines:
+            banned_word = word.strip().lower()
+            list.append(banned_word)
+
+            return list
+
+banned = loadBanned()
+
+def contains(text):
+    text = text.lower()
+    for word in banned:
+        if word in text:
+            return True
+    return False
+
 def getConnection():
     return psycopg2.connect(os.getenv("DATABASE_URL"))
 
@@ -34,6 +52,8 @@ def addNote():
     title = data.get("title")
     content = data.get("content")
 
+    if contains(title) or contains(content):
+        return jsonify({"error": "Inappropriate language is not allowed"}), 400
 
     base = getConnection()
     c = base.cursor()
@@ -63,3 +83,5 @@ def allNotes():
 
 
     return jsonify(notes)
+
+    
