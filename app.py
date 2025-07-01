@@ -56,7 +56,7 @@ def allNotes():
     notes = []
     for row in rows:
         notes.append({
-            "id": row[0]
+            "id": row[0],
             "title": row[1],
             "content": row[2]
             })
