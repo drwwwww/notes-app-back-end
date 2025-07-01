@@ -48,7 +48,7 @@ def allNotes():
 
     base = getConnection()
     c = base.cursor()
-    c.execute("SELECT title, content FROM notes")
+    c.execute("SELECT id, title, content FROM notes")
     rows = c.fetchall()
     base.commit()
     base.close()
