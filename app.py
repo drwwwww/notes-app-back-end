@@ -5,13 +5,15 @@ import os
 import psycopg2
 
 def loadBanned():
-    list = []
-    with open("banned.txt", "r") as f:
-        for word in f.readlines:
-            banned_word = word.strip().lower()
-            list.append(banned_word)
+    bt = os.getenv("BANNED")
+    b = bt.split(",")
 
-            return list
+    list = []
+    for word in b:
+        banned_word = word.strip().lower()
+        list.append(banned_word)
+
+        return list
 
 banned = loadBanned()
 
